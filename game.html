@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SAID: Final Steps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="hud" class="hidden"><b>Score: <span id="score">0</span>/3</b></div>
+
+<div id="timer-container" class="hidden">
+    <div id="timer-bar-bg">
+        <div id="timer-bar"></div>
+    </div>
+    <div id="timer-text">30s</div>
+</div>
+
+<section id="start" class="screen active bg-start">
+    <div class="scanline"></div>
+    <div class="start-ui-container">
+        <div class="title-group">
+            <h2 class="sub-title">SCHOOL OF ARTIFICIAL INTELLIGENCE DEFENSE</h2>
+            <h1 class="neon-red">FINAL STEPS</h1>
+        </div>
+        <button class="primary pulse-btn start-btn" onclick="startGame()">[ INITIATE START ]</button>
+    </div>
+</section>
+
+<section id="intro" class="screen bg-intro">
+    <div class="center-container">
+        <img src="assets/hologram.png" class="oldman" draggable="false">
+        <div class="textbox">
+            <p id="introText"></p>
+            <button id="introBtn" disabled>Next</button>
+        </div>
+    </div>
+</section>
+
+<section id="c1" class="screen bg-room1">
+    <h2 id="c1Instruction" class="title hidden" style="font-size: 22px; margin-bottom: 30px; position: relative; z-index: 1;">
+        Select the AI-generated image.
+    </h2>
+
+    <div id="c1Images" class="image-grid hidden">
+        <div class="image-card" onclick="answerC1(false)">
+            <div class="card-header">SUBJECT_ALPHA</div>
+            <div class="image-wrapper">
+                <img src="assets/real.jpg" draggable="false">
+            </div>
+            <div class="card-footer">[ SELECT FILE ]</div>
+        </div>
+
+        <div class="image-card" onclick="answerC1(true)">
+            <div class="card-header">SUBJECT_BETA</div>
+            <div class="image-wrapper">
+                <img src="assets/ai.png" draggable="false">
+            </div>
+            <div class="card-footer">[ SELECT FILE ]</div>
+        </div>
+    </div>
+
+    <div id="c1Dialogue" class="dialogue-panel hidden">
+        <img src="assets/hologram.png" class="oldman" draggable="false">
+        <div class="textbox">
+            <p id="c1Text"></p>
+            <button id="c1Btn" disabled>Next</button>
+        </div>
+    </div>
+</section>
+
+<section id="c2" class="screen bg-room2">
+    <h2 id="c2Instruction" class="title hidden" style="font-size: 22px; margin-bottom: 30px; position: relative; z-index: 1;">
+        Select the AI-generated audio.
+    </h2>
+
+    <div id="c2AudioBoxes" class="hidden">
+        <div class="audio-card" id="cardA">
+            <h3>Subject A</h3>
+            <div class="visualizer-screen" id="visA">
+                <div class="wave"></div><div class="wave"></div><div class="wave"></div>
+                <div class="wave"></div><div class="wave"></div>
+            </div>
+            <div class="controls">
+                <button class="btn-play" onclick="playAudioClip('realAudio', 'visA')">▶ Play Sample</button>
+            </div>
+            <button class="btn-select" onclick="answerC2(false)">[ IDENTIFY AS AI ]</button>
+        </div>
+
+        <div class="audio-card" id="cardB">
+            <h3>Subject B</h3>
+            <div class="visualizer-screen" id="visB">
+                <div class="wave"></div><div class="wave"></div><div class="wave"></div>
+                <div class="wave"></div><div class="wave"></div>
+            </div>
+            <div class="controls">
+                <button class="btn-play" onclick="playAudioClip('fakeAudio', 'visB')">▶ Play Sample</button>
+            </div>
+            <button class="btn-select" onclick="answerC2(true)">[ IDENTIFY AS AI ]</button>
+        </div>
+    </div>
+
+    <div id="c2Dialogue" class="dialogue-panel hidden">
+        <img src="assets/hologram.png" class="oldman" draggable="false">
+        <div class="textbox">
+            <p id="c2Text"></p>
+            <button id="c2Btn" disabled>Next</button>
+        </div>
+    </div>
+</section>
+
+<section id="c3" class="screen bg-room2">
+    <h2 id="c3Instruction" class="title hidden" style="font-size: 22px; margin-bottom: 30px; position: relative; z-index: 1;">
+        Select the device with the AI-generated message.
+    </h2>
+
+    <div id="c3Tablets" class="image-grid hidden">
+        <div class="simple-tablet phone-1" onclick="answerC3(true)">
+            <div class="notch"></div>
+            <div class="chat-header">
+                <div class="avatar">M</div>
+                <div class="contact-name">Mum</div>
+            </div>
+            <div class="chat-body">
+                <div class="typing-indicator"><span></span><span></span><span></span></div>
+                <div class="message received">
+                    Hello, I need your help urgently. I am locked out of my account and I need your NRIC number to verify my identity. Please send it to me now, it is very important and I need it immediately.
+                </div>
+            </div>
+            <div class="device-footer">[ SELECT DEVICE ]</div>
+        </div>
+
+        <div class="simple-tablet phone-2" onclick="answerC3(false)">
+            <div class="notch"></div>
+            <div class="chat-header">
+                <div class="avatar">M</div>
+                <div class="contact-name">Mum</div>
+            </div>
+            <div class="chat-body">
+                <div class="typing-indicator"><span></span><span></span><span></span></div>
+                <div class="message received">
+                    Hey, are you done with your training today? What's your NRIC ah? I'm filling up some school documents for you.
+                </div>
+            </div>
+            <div class="device-footer">[ SELECT DEVICE ]</div>
+        </div>
+    </div>
+    
+    <div id="c3Dialogue" class="dialogue-panel hidden">
+        <img src="assets/hologram.png" class="oldman" draggable="false">
+        <div class="textbox">
+            <p id="c3Text"></p>
+            <button id="c3Btn" disabled>Next</button>
+        </div>
+    </div>
+</section>
+
+<section id="end" class="screen">
+    <div id="finalResultsCard" class="center-container hidden" style="z-index: 2; position: relative;">
+        <h1 class="title" style="margin-top: 10px; font-size: 40px;">TRAINING COMPLETE</h1>
+        <h2 id="finalScore" style="color: white; text-shadow: 0 0 10px white; text-align: center; font-size: 30px; margin: 10px 0;"></h2>
+        <p id="evaluation" style="color: cyan; max-width: 600px; text-align: center; margin: 10px auto; font-size: 18px; line-height: 1.5;"></p>
+        
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+            <button class="primary" onclick="restartGame(true)">Try again</button>
+            <button class="primary" onclick="restartGame(false)">Exit</button>
+        </div>
+    </div>
+
+    <div id="endDialogue" class="dialogue-panel hidden">
+        <img src="assets/hologram.png" class="oldman" draggable="false">
+        <div class="textbox">
+            <p id="endText"></p>
+            <button id="endBtn" disabled>Next</button>
+        </div>
+    </div>
+</section>
+
+<div id="cyberTransition" class="hidden">
+    <div class="cyber-glitch-container">
+        <h2 class="sys-text">> UPLOADING NEURAL PATHWAYS...</h2>
+        <h2 class="sys-text">> ESTABLISHING SECURE LINK...</h2>
+        <h2 class="sys-text glow-override">> INITIATE FINAL TEST: SUCCESS</h2>
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+<audio id="realAudio" src="assets/real_audio.mp3" preload="auto"></audio>
+<audio id="fakeAudio" src="assets/fake_audio.mp3" preload="auto"></audio>
+
+<audio id="correctSFX" src="assets/correct.mp3" preload="auto"></audio>
+<audio id="wrongSFX" src="assets/wrong.mp3" preload="auto"></audio>
+<audio id="unlockSFX" src="assets/unlock.mp3" preload="auto"></audio>
+<audio id="buzzSFX" src="assets/buzz.mp3" preload="auto"></audio>
+<audio id="boopSFX" src="assets/boop.mp3" preload="auto"></audio>
+<audio id="goSFX" src="assets/go.mp3" preload="auto"></audio>
+<audio id="textSFX" src="assets/text.mp3" preload="auto"></audio>
+<audio id="beepSFX" src="assets/beep.mp3" preload="auto"></audio>
+
+<audio id="startBGM" src="assets/start_sfx.mp3" preload="auto"></audio>
+<audio id="introBGM" src="assets/intro_sfx.mp3" preload="auto"></audio>
+<audio id="room1BGM" src="assets/room1_sfx.mp3" preload="auto"></audio>
+<audio id="room2BGM" src="assets/room2_sfx.mp3" preload="auto"></audio>
+<audio id="room3BGM" src="assets/room3_sfx.mp3" preload="auto"></audio>
+<audio id="failBGM" src="assets/fail.mp3" preload="auto"></audio>
+<audio id="endBGM" src="assets/end_sfx.mp3" preload="auto"></audio>
+
+<div id="fade"></div>
+<div id="overlay"></div>
+
+<script src="game.js"></script>
+</body>
+</html>

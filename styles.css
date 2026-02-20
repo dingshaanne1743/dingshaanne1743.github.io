@@ -1,0 +1,263 @@
+/* --- BASE SETUP --- */
+body {
+    margin: 0; font-family: 'Segoe UI', sans-serif; color: cyan;
+    overflow: hidden; background: black; position: relative;
+    width: 960px; height: 540px;
+}
+.screen {
+    position: relative; display: none; width: 960px; height: 540px;
+    align-items: center; justify-content: center; flex-direction: column;
+}
+.active { display: flex; }
+.hidden { display: none !important; }
+
+/* --- BACKGROUNDS --- */
+.bg-start { background: url('assets/start.png') center/cover no-repeat; }
+.bg-intro { 
+    background: linear-gradient(rgba(0, 20, 40, 0.4), rgba(0, 20, 40, 0.4)), url('assets/intro.png');
+    background-position: center; background-size: cover; background-repeat: no-repeat;
+}
+.bg-room1 { background: url('assets/room1.png') center/cover no-repeat; }
+.bg-room2 { background: url('assets/room2.png') center/cover no-repeat; }
+.bg-graduation { background: url('assets/graduation.png') center/cover no-repeat; }
+
+/* --- NEW: START SCREEN UI --- */
+.start-ui-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2; display: flex; flex-direction: column; 
+    justify-content: space-between; 
+    align-items: center;
+    padding-top: 15vh; padding-bottom: 12vh; box-sizing: border-box; 
+}
+
+.title-group {
+    margin-top: 100px; width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.sub-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px; color: cyan; letter-spacing: 4px; margin: 0 0 5px 0;
+    font-weight: 400; text-align: center; text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+.neon-red {
+    font-family: "Zen Dots", sans-serif; font-size: 70px; color: #ff3333;
+    margin: 0; letter-spacing: 4px; text-align: center;
+    text-shadow: 0 0 5px red, 0 0 15px red, 0 0 30px #ff0000;
+    animation: redPulse 2s infinite alternate;
+}
+
+@keyframes redPulse {
+    from { text-shadow: 0 0 5px red, 0 0 10px red; }
+    to { text-shadow: 0 0 10px red, 0 0 20px red, 0 0 35px #ff3333; }
+}
+
+.start-btn { margin-top: auto; margin-bottom: 80px; }
+
+.pulse-btn {
+    background: rgba(0, 255, 255, 0.1); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;
+    letter-spacing: 2px; padding: 15px 30px; font-size: 20px;
+    border: 2px solid cyan; color: white; text-shadow: 0 0 5px cyan;
+    box-shadow: 0 0 15px rgba(0,255,255,0.4); transition: all 0.3s ease;
+}
+.pulse-btn:hover { background: cyan; color: black; box-shadow: 0 0 30px cyan, 0 0 50px cyan; transform: scale(1.05); }
+
+.scanline {
+    position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: rgba(0, 255, 255, 0.5); opacity: 0.5;
+    animation: scan 4s linear infinite; z-index: 1; pointer-events: none;
+}
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+/* --- CYBER TRANSITION OVERLAY --- */
+#cyberTransition {
+    position: fixed; inset: 0; background: #050505; z-index: 10000;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.cyber-glitch-container { width: 600px; text-align: left; }
+.sys-text {
+    color: #0f0; font-family: monospace; font-size: 22px; margin: 12px 0;
+    text-shadow: 0 0 5px #0f0; opacity: 0;
+}
+.glow-override { color: cyan; text-shadow: 0 0 10px cyan; }
+.progress-bar-container { width: 100%; height: 15px; border: 2px solid cyan; margin-top: 30px; box-shadow: 0 0 10px cyan; }
+.progress-bar { width: 0%; height: 100%; background: cyan; box-shadow: 0 0 10px cyan; }
+
+.active-boot .sys-text:nth-child(1) { animation: typeLine 0.1s forwards 0.1s; }
+.active-boot .sys-text:nth-child(2) { animation: typeLine 0.1s forwards 0.5s; }
+.active-boot .sys-text:nth-child(3) { animation: typeLine 0.1s forwards 1.0s; }
+.active-boot .progress-bar { animation: loadBar 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards; }
+
+@keyframes typeLine { 0% { opacity: 0; transform: translateX(-10px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+
+/* --- TYPOGRAPHY & BUTTONS --- */
+.title { font-family: "Zen Dots", sans-serif; text-align: center; text-shadow: 0 0 20px cyan; }
+.final { color: red; text-shadow: 0 0 15px red; }
+
+button {
+    padding: 10px 24px; border: 2px solid cyan; background: rgba(0,0,0,0.7);
+    color: cyan; cursor: pointer; transition: 0.3s;
+}
+button:disabled { opacity: 0.4; cursor: default; }
+button:not(:disabled):hover { background: cyan; color: black; transform: scale(1.05); box-shadow: 0 0 15px cyan; }
+.primary { font-size: 20px; margin-top: 20px; }
+
+/* --- UI ELEMENTS --- */
+#start, #intro { padding: 0; }
+.center-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%; }
+
+.oldman { width: 240px; border: none !important; user-select: none; pointer-events: none; }
+#intro .oldman, .failed-closing .oldman { width: 220px !important; }
+#intro .textbox, .failed-closing .textbox { width: 580px !important; height: 110px !important; }
+
+.pop-anim { animation: popOldMan 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+@keyframes popOldMan { 0% { transform: scale(0.85); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+
+.textbox {
+    width: 650px; height: 140px; background: rgba(0,0,0,0.85);
+    padding: 15px 20px 50px 20px; border: 2px solid cyan; position: relative;
+}
+.textbox p { position: absolute; top: 15px; left: 20px; right: 20px; line-height: 1.5; text-align: left; margin: 0; }
+.textbox button { position: absolute; bottom: 10px; right: 15px; }
+
+#finalResultsCard {
+    background: rgba(0, 0, 0, 0.9); border: 2px solid cyan; padding: 40px 60px;
+    border-radius: 20px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.3); max-width: 750px;
+}
+
+/* --- LAYERS & ALIGNMENT --- */
+#overlay { position: fixed; inset: 0; background: transparent; pointer-events: none; transition: background 0.3s; z-index: 2; }
+.dialogue-panel {
+    position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+    width: max-content; max-width: 900px; display: flex; align-items: flex-end; justify-content: center; gap: 20px;
+    padding-bottom: 10px; animation: slideUp 0.5s ease; z-index: 3;
+}
+.failed-closing {
+    position: absolute !important; top: 45% !important; left: 50% !important; bottom: auto !important;
+    transform: translate(-50%, -50%) !important; flex-direction: column !important;
+    align-items: center !important; justify-content: center !important;
+    gap: 15px !important; width: 100% !important;
+}
+#fade { position: fixed; inset: 0; background: black; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; z-index: 9999; }
+
+/* --- ANIMATIONS --- */
+@keyframes slideUp { from { transform: translateX(-50%) translateY(100%); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+@keyframes slideDown { from { transform: translateX(-50%) translateY(0); opacity: 1; } to { transform: translateX(-50%) translateY(100%); opacity: 0; } }
+
+/* --- CHALLENGE 1 (FORENSIC CARDS) --- */
+.image-grid { display: flex; gap: 40px; justify-content: center; position: relative; z-index: 1;}
+
+.image-card {
+    background: rgba(0, 20, 30, 0.9); border: 2px solid cyan; border-radius: 10px; padding: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); cursor: pointer; transition: all 0.3s ease; text-align: center;
+}
+.image-card:hover { transform: scale(1.05); box-shadow: 0 0 30px cyan, inset 0 0 15px rgba(0, 255, 255, 0.2); border-color: white; }
+
+.card-header { 
+    margin: 0 0 10px 0; color: cyan; font-family: 'Zen Dots', sans-serif; font-size: 14px; 
+    letter-spacing: 1px; border-bottom: 1px solid rgba(0,255,255,0.3); padding-bottom: 5px; 
+}
+.image-wrapper { position: relative; width: 220px; height: 220px; overflow: hidden; border: 1px solid #333; border-radius: 5px; }
+.image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+.image-wrapper::after {
+    content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, transparent 45%, rgba(0, 255, 255, 0.8) 50%, transparent 55%);
+    animation: scanVertical 2.5s linear infinite; pointer-events: none;
+}
+@keyframes scanVertical { 0% { top: -100%; } 100% { top: 100%; } }
+
+.card-footer { margin-top: 15px; color: cyan; font-family: monospace; font-size: 16px; transition: color 0.3s; }
+.image-card:hover .card-footer { color: white; text-shadow: 0 0 8px white; }
+
+/* --- CHALLENGE 2 (AUDIO CONSOLE) --- */
+#c2AudioBoxes { display: flex; gap: 40px; align-items: center; justify-content: center; width: 100%; position: relative; z-index: 1; }
+.audio-card { width: 250px; background: rgba(0, 20, 40, 0.9); border: 2px solid cyan; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); }
+.audio-card h3 { margin-top: 0; color: cyan; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(0, 255, 255, 0.3); padding-bottom: 10px; }
+.visualizer-screen { width: 100%; height: 60px; background: black; border: 1px solid #333; margin: 15px 0; display: flex; align-items: center; justify-content: center; }
+.wave { width: 5px; height: 8px; background: cyan; margin: 0 3px; border-radius: 3px; transition: 0.2s; }
+
+.playing .wave { animation: bounce 0.5s infinite ease-in-out; }
+.playing .wave:nth-child(2) { animation-delay: 0.1s; }
+.playing .wave:nth-child(3) { animation-delay: 0.2s; }
+.playing .wave:nth-child(4) { animation-delay: 0.3s; }
+.playing .wave:nth-child(5) { animation-delay: 0.4s; }
+@keyframes bounce { 0%, 100% { height: 8px; } 50% { height: 45px; background: white; box-shadow: 0 0 10px cyan; } }
+
+.controls { display: flex; justify-content: center; }
+.btn-play { background: rgba(0, 255, 255, 0.1); font-size: 14px; }
+.btn-select { width: 100%; margin-top: 15px; background: transparent; border: 2px dashed cyan; }
+.btn-select:hover { border-style: solid; }
+
+/* --- CHALLENGE 3 (CYBER PHONES / TABLETS) --- */
+.simple-tablet {
+    width: 260px; min-height: 380px; background: rgba(0, 20, 40, 0.9); 
+    border: 2px solid cyan; border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); cursor: pointer; 
+    transition: all 0.3s ease; display: flex; flex-direction: column; 
+    position: relative; overflow: hidden; z-index: 1;
+}
+.simple-tablet:hover { transform: scale(1.05); box-shadow: 0 0 30px cyan, inset 0 0 15px rgba(0, 255, 255, 0.2); border-color: white; }
+
+/* The Reintroduced Notch */
+.notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 20px; background: rgba(0, 20, 40, 1); 
+    border: 2px solid cyan; border-top: none;
+    border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+    z-index: 10;
+}
+
+.chat-header { background: rgba(0, 0, 0, 0.6); padding: 25px 15px 15px 15px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(0, 255, 255, 0.3); }
+.avatar { width: 32px; height: 32px; background: cyan; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold; font-size: 14px; }
+.contact-name { color: cyan; font-weight: bold; font-size: 16px; font-family: 'Segoe UI', sans-serif; letter-spacing: 1px; }
+.chat-body { flex: 1; padding: 20px 15px; display: flex; flex-direction: column; position: relative; }
+
+.typing-indicator { position: absolute; top: 20px; left: 15px; background: #222; padding: 14px 16px; border-radius: 10px; display: flex; gap: 6px; border: 1px solid cyan; box-shadow: 0 2px 5px rgba(0,0,0,0.5); opacity: 0; z-index: 2; }
+.typing-indicator span { width: 6px; height: 6px; background: cyan; border-radius: 50%; animation: bounceDot 1.4s infinite ease-in-out; }
+.typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounceDot { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-5px); background: #fff; } }
+
+.message {
+    background: #111; color: #e0e0e0; padding: 15px; border-radius: 10px; font-size: 14px; line-height: 1.5; max-width: 90%; font-family: 'Segoe UI', sans-serif;
+    border: 1px solid rgba(0, 255, 255, 0.3); opacity: 0; transform-origin: top left; animation: receiveMessage 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes receiveMessage { 0% { opacity: 0; transform: scale(0.8) translateY(15px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+
+.phone-1 .typing-indicator { animation: typeFast 1s ease-in-out forwards; }
+.phone-1 .message { animation-delay: 1s; }
+@keyframes typeFast { 0% { opacity: 0; transform: scale(0.8); } 10%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.8); visibility: hidden; } }
+
+.phone-2 .typing-indicator { animation: typeSlow 6s ease-in-out forwards; }
+.phone-2 .message { animation-delay: 6s; }
+@keyframes typeSlow { 0% { opacity: 0; transform: scale(0.8); } 5%, 98% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.8); visibility: hidden; } }
+
+.device-footer {
+    margin-top: auto; text-align: center; padding: 15px 0;
+    color: cyan; font-family: monospace; font-size: 14px;
+    border-top: 1px solid rgba(0, 255, 255, 0.3); background: rgba(0,0,0,0.4);
+    transition: color 0.3s, background 0.3s, text-shadow 0.3s;
+}
+.simple-tablet:hover .device-footer { color: white; background: rgba(0, 255, 255, 0.2); text-shadow: 0 0 8px white; }
+
+/* --- HUD & TIMER --- */
+#hud { position: absolute; top: 15px; right: 20px; font-size: 20px; text-shadow: 0 0 10px cyan; z-index: 10; font-family: "Zen Dots", sans-serif; }
+.fade-out { opacity: 0; transition: opacity 0.4s ease; }
+
+#timer-container {
+    position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 15px; z-index: 10;
+    background: rgba(0, 20, 30, 0.85); padding: 8px 20px;
+    border: 2px solid cyan; border-radius: 8px; box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+#timer-bar-bg { width: 300px; height: 12px; background: #111; border: 1px solid #444; border-radius: 6px; overflow: hidden; }
+#timer-bar {
+    width: 100%; height: 100%; background: cyan; box-shadow: 0 0 10px cyan;
+    transition: width 1s linear, background-color 1s linear, box-shadow 1s linear;
+}
+#timer-text { font-family: "Zen Dots", sans-serif; color: white; font-size: 18px; min-width: 45px; text-align: right; }
